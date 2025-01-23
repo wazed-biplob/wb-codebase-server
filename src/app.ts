@@ -39,6 +39,12 @@ app.post("/users/userInfo", async (req, res) => {
   }
 });
 
+app.get("/users/userInfo", async (req, res) => {
+  const response = await User.find();
+  console.log(req.body);
+  res.send({ response });
+});
+
 async function main() {
   try {
     mongoose

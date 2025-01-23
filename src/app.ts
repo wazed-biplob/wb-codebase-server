@@ -1,7 +1,12 @@
-import express from "express";
+import express, { Response } from "express";
 import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import path from "path";
+import { User } from "./interface/user.model";
+
+dotenv.config({ path: path.join(process.cwd(), ".env") });
 const app = express();
-const port = 5000;
 
 app.use(express.json());
 const allowedOrigins = [
@@ -26,8 +31,27 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.post("/users/userInfo", async (req, res) => {
+  if (req.body.userId !== "" || undefined || null) {
+    const response = await User.create(req.body);
+    console.log(req.body);
+    res.send({ response });
+  }
 });
+
+async function main() {
+  try {
+    mongoose
+      .connect(process.env.DB_URL as string)
+      .then(() => console.log("MongoDB connected."));
+    app.listen(5000, () => {
+      console.log(`app is running at 5000!`);
+    });
+  } catch (e) {
+    console.log(`Error : `, e);
+  }
+}
+
+main();
 
 export default app;

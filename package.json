@@ -4,7 +4,7 @@
   "description": "server for analysing traffic details",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --watch src/**/*.ts --respawn --transpile-only src/app.ts",
+    "dev": "ts-node-dev src/app.ts",
     "start": "node api/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,8 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongodb": "^6.12.0"
+    "mongodb": "^6.12.0",
+    "mongoose": "^8.9.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

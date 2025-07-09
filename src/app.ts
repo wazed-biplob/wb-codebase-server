@@ -1,7 +1,7 @@
 import express, { Response } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import dotenv, { config } from "dotenv";
 import path from "path";
 import { User } from "./interface/user.model";
 
@@ -50,8 +50,8 @@ async function main() {
     mongoose
       .connect(process.env.DB_URL as string)
       .then(() => console.log("MongoDB connected."));
-    app.listen(5000, () => {
-      console.log(`app is running at 5000!`);
+    app.listen(process.env.PORT, () => {
+      console.log(`app is running at 2222!`);
     });
   } catch (e) {
     console.log(`Error : `, e);

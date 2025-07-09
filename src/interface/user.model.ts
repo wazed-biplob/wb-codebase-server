@@ -3,8 +3,16 @@ import { IUser } from "./user.interface";
 
 const userSchema = new Schema<IUser>(
   {
-    userId: { type: String },
-    dateTime: { type: String },
+    ip: { type: String },
+    userAgent: { type: String },
+    language: { type: String },
+    platform: { type: String },
+    cores: { type: Number },
+    width: { type: Number },
+    height: { type: Number },
+    colorDepth: { type: Number },
+    currentTime: { type: String },
+    timezone: { type: String },
   },
   { timestamps: true }
 );

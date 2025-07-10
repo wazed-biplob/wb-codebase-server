@@ -1,7 +1,7 @@
-import express, { Response } from "express";
+import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import dotenv, { config } from "dotenv";
+import dotenv from "dotenv";
 import path from "path";
 import { User } from "./interface/user.model";
 
@@ -15,7 +15,10 @@ const allowedOrigins = [
 ];
 app.use(
   cors({
-    origin: (origin: any, callback: any) => {
+    origin: (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void
+    ) => {
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
@@ -26,7 +29,6 @@ app.use(
     methods: ["GET", "POST", "DELETE", "UPDATE"],
   })
 );
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -35,6 +37,15 @@ app.post("/users/userInfo", async (req, res) => {
   if (req.body.userId !== "" || undefined || null) {
     const response = await User.create(req.body);
     console.log(req.body);
+    res.send({ response });
+  }
+});
+
+app.delete("/users/delete-traffic/:id", async (req, res) => {
+  const id = req?.params?.id;
+  if (id) {
+    console.log(id);
+    const response = await User.deleteOne({ _id: id });
     res.send({ response });
   }
 });
